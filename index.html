@@ -41,22 +41,142 @@
       background: #0097a7;
     }
 
+    /* Heart Rate Monitor Display */
+    #heart-rate-display {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      border-radius: 10px;
+      margin: 15px auto;
+      width: 90%;
+      max-width: 400px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .hr-value {
+      font-size: 36px;
+      font-weight: bold;
+      color: #4caf50;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hr-value.abnormal-low {
+      color: #ff9800;
+    }
+
+    .hr-value.abnormal-high {
+      color: #f44336;
+    }
+
+    .hr-label {
+      font-size: 14px;
+      color: #b0bec5;
+      margin-top: 5px;
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.1); }
+      50% { transform: scale(1); }
+      100% { transform: scale(1); }
+    }
+
+    .heart-icon {
+      animation: heartbeat 1s infinite;
+      display: inline-block;
+    }
+
+    /* Priority Container */
+    #priority-container {
+      width: 90%;
+      max-width: 600px;
+      margin-top: 20px;
+    }
+
+    /* Priority Header */
+    .priority-header {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 10px 10px 0 0;
+      margin-bottom: -5px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: none;
+    }
+
+    .priority-header.active {
+      display: block;
+    }
+
     /* Shared styling for status boxes */
     .status-box {
-      margin-top: 20px;
+      margin: 10px auto;
       font-size: 20px;
       font-weight: bold;
       padding: 15px;
       border-radius: 10px;
       transition: 0.3s;
-      width: 80%;
-      max-width: 400px;
+      width: 100%;
+      position: relative;
+      order: 100; /* Default order - lowest priority */
     }
 
+    /* Updated Priority indicators */
+    .status-box.priority-1 {
+      order: 1;
+      border: 3px solid #ff6b6b;
+      animation: pulse-critical 1s infinite;
+    }
+
+    .status-box.priority-2 {
+      order: 2;
+      border: 3px solid #ff9800;
+      animation: pulse-warning 1.5s infinite;
+    }
+
+    .status-box.priority-3 {
+      order: 3;
+      border: 2px solid #ffd93d;
+    }
+
+    .status-box.priority-4 {
+      order: 4;
+      border: 1px solid #6bcf7f;
+    }
+
+    @keyframes pulse-critical {
+      0% { box-shadow: 0 0 10px rgba(255, 107, 107, 0.5); }
+      50% { box-shadow: 0 0 30px rgba(255, 107, 107, 0.9); }
+      100% { box-shadow: 0 0 10px rgba(255, 107, 107, 0.5); }
+    }
+
+    @keyframes pulse-warning {
+      0% { box-shadow: 0 0 10px rgba(255, 152, 0, 0.5); }
+      50% { box-shadow: 0 0 25px rgba(255, 152, 0, 0.8); }
+      100% { box-shadow: 0 0 10px rgba(255, 152, 0, 0.5); }
+    }
+
+    /* Alert states */
     .alert {
       background-color: #e53935;
       color: white;
       box-shadow: 0 0 20px rgba(229, 57, 53, 0.6);
+    }
+
+    .fall-alert {
+      background-color: #d32f2f; /* Darker red for falls */
+      color: white;
+      box-shadow: 0 0 30px rgba(211, 47, 47, 0.8);
+    }
+
+    .heart-alert {
+      background-color: #ff5722; /* Orange-red for heart issues */
+      color: white;
+      box-shadow: 0 0 25px rgba(255, 87, 34, 0.7);
     }
 
     .serviced {
@@ -76,7 +196,86 @@
       box-shadow: 0 0 20px rgba(253, 216, 53, 0.7);
     }
 
-    /* *** NEW *** Modal Styles */
+    /* Priority labels */
+    .priority-label {
+      position: absolute;
+      top: -10px;
+      right: 10px;
+      background: #ff4444;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .status-box.priority-1 .priority-label,
+    .status-box.priority-2 .priority-label,
+    .status-box.priority-3 .priority-label,
+    .status-box.priority-4 .priority-label {
+      display: block;
+    }
+
+    .status-box.priority-1 .priority-label { background: #ff4444; }
+    .status-box.priority-2 .priority-label { background: #ff9800; }
+    .status-box.priority-3 .priority-label { background: #ffaa00; }
+    .status-box.priority-4 .priority-label { background: #44ff44; color: #212121; }
+
+    /* Heart Rate Settings */
+    #hr-settings {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px;
+      border-radius: 10px;
+      margin: 10px auto;
+      width: 90%;
+      max-width: 400px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      font-size: 14px;
+    }
+
+    #hr-settings input {
+      width: 60px;
+      padding: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    /* Action summary */
+    #action-summary {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 600px;
+      display: none;
+    }
+
+    #action-summary.active {
+      display: block;
+    }
+
+    #action-summary h3 {
+      margin: 0 0 10px 0;
+      color: #ffeb3b;
+    }
+
+    #action-summary ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+
+    #action-summary li {
+      padding: 5px 0;
+      font-size: 18px;
+    }
+
+    /* *** Modal Styles *** */
     #scheduleModal {
       display: none; /* Hidden by default */
       position: fixed;
@@ -175,11 +374,53 @@
   <button id="serviceBtn" disabled>✅ Patient Serviced</button>
   <button id="editScheduleBtn" class="btn">📅 Edit Schedule</button>
 
-  <div id="med-alert" class="status-box waiting">
-    💊 No medicine reminders.
+  <!-- Heart Rate Monitor Display -->
+  <div id="heart-rate-display">
+    <div>
+      <div class="hr-value" id="hr-value">
+        <span class="heart-icon">❤️</span>
+        <span id="hr-number">--</span>
+        <span style="font-size: 16px;">BPM</span>
+      </div>
+      <div class="hr-label">Heart Rate</div>
+    </div>
   </div>
 
-  <p id="status" class="status-box waiting">🕓 Waiting for patient call...</p>
+  <!-- Heart Rate Settings -->
+  <div id="hr-settings">
+    <label>Low: <input type="number" id="hr-low" value="60" min="40" max="80"></label>
+    <label>High: <input type="number" id="hr-high" value="100" min="90" max="140"></label>
+    <button onclick="updateHRThresholds()" style="padding: 5px 10px; font-size: 14px;">Update</button>
+  </div>
+
+  <!-- Action Summary (appears when there are active alerts) -->
+  <div id="action-summary">
+    <h3>⚠️ PRIORITY ACTIONS REQUIRED:</h3>
+    <ul id="priority-list"></ul>
+  </div>
+
+  <!-- Priority Order Display -->
+  <div id="priority-container">
+    <div id="fall-alert" class="status-box waiting">
+      <span class="priority-label">PRIORITY 1</span>
+      🧍‍♂️ No fall detected
+    </div>
+    
+    <div id="heart-alert" class="status-box waiting">
+      <span class="priority-label">PRIORITY 2</span>
+      ❤️ Heart rate normal
+    </div>
+    
+    <div id="status" class="status-box waiting">
+      <span class="priority-label">PRIORITY 3</span>
+      🕓 Waiting for patient call...
+    </div>
+    
+    <div id="med-alert" class="status-box waiting">
+      <span class="priority-label">PRIORITY 4</span>
+      💊 No medicine reminders
+    </div>
+  </div>
 
   <audio id="alertSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
 
@@ -188,7 +429,7 @@
       <h2>Edit Medicine Schedule</h2>
 
       <ul id="scheduleList">
-        </ul>
+      </ul>
 
       <div>
         <input type="text" id="medNameInput" placeholder="Medicine Name">
@@ -207,11 +448,32 @@
     const SERVICE_UUID = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
     const CHARACTERISTIC_UUID = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
     const SCHEDULE_KEY = "nurseAppSchedule"; // localStorage key
+    const HR_SETTINGS_KEY = "nurseAppHRSettings"; // localStorage key for HR thresholds
 
     let bleCharacteristic = null;
     let medicineSchedule = []; // To store the schedule
     let medCheckInterval = null;
     let lastAlertedMedTime = null;
+    let hrCheckInterval = null;
+
+    // Heart rate thresholds
+    let hrThresholds = {
+      low: 60,
+      high: 100
+    };
+
+    // Current heart rate
+    let currentHeartRate = null;
+
+    // Track active alerts in priority order
+    let activeAlerts = {
+      fall: false,
+      heartRate: false,
+      heartRateType: null, // 'low' or 'high'
+      call: false,
+      medicine: false,
+      medicineName: null
+    };
 
     // --- Sound ---
     function playAlertSound() {
@@ -220,19 +482,175 @@
       sound.play().catch(err => console.warn("Audio blocked:", err));
     }
 
+    // --- Heart Rate Functions ---
+    function loadHRSettings() {
+      const saved = localStorage.getItem(HR_SETTINGS_KEY);
+      if (saved) {
+        hrThresholds = JSON.parse(saved);
+        document.getElementById('hr-low').value = hrThresholds.low;
+        document.getElementById('hr-high').value = hrThresholds.high;
+      }
+    }
+
+    function updateHRThresholds() {
+      hrThresholds.low = parseInt(document.getElementById('hr-low').value);
+      hrThresholds.high = parseInt(document.getElementById('hr-high').value);
+      localStorage.setItem(HR_SETTINGS_KEY, JSON.stringify(hrThresholds));
+      console.log("Updated HR thresholds:", hrThresholds);
+      
+      // Check current heart rate against new thresholds
+      if (currentHeartRate !== null) {
+        checkHeartRate(currentHeartRate);
+      }
+    }
+
+    function updateHeartRateDisplay(hr) {
+      currentHeartRate = hr;
+      const hrNumber = document.getElementById('hr-number');
+      const hrValue = document.getElementById('hr-value');
+      
+      hrNumber.textContent = hr;
+      
+      // Update color based on value
+      if (hr < hrThresholds.low) {
+        hrValue.className = 'hr-value abnormal-low';
+      } else if (hr > hrThresholds.high) {
+        hrValue.className = 'hr-value abnormal-high';
+      } else {
+        hrValue.className = 'hr-value';
+      }
+      
+      // Check for alerts
+      checkHeartRate(hr);
+    }
+
+    function checkHeartRate(hr) {
+      const heartEl = document.getElementById("heart-alert");
+      
+      if (hr < hrThresholds.low) {
+        // Low heart rate alert
+        if (!activeAlerts.heartRate || activeAlerts.heartRateType !== 'low') {
+          activeAlerts.heartRate = true;
+          activeAlerts.heartRateType = 'low';
+          updatePriorityDisplay();
+          playAlertSound();
+          sendBLECommand("HR_ALERT_LOW");
+        }
+      } else if (hr > hrThresholds.high) {
+        // High heart rate alert
+        if (!activeAlerts.heartRate || activeAlerts.heartRateType !== 'high') {
+          activeAlerts.heartRate = true;
+          activeAlerts.heartRateType = 'high';
+          updatePriorityDisplay();
+          playAlertSound();
+          sendBLECommand("HR_ALERT_HIGH");
+        }
+      } else {
+        // Normal heart rate
+        if (activeAlerts.heartRate) {
+          activeAlerts.heartRate = false;
+          activeAlerts.heartRateType = null;
+          updatePriorityDisplay();
+          sendBLECommand("HR_ALERT_OFF");
+        }
+      }
+    }
+
+    // --- Priority Management ---
+    function updatePriorityDisplay() {
+      const fallEl = document.getElementById("fall-alert");
+      const heartEl = document.getElementById("heart-alert");
+      const statusEl = document.getElementById("status");
+      const medEl = document.getElementById("med-alert");
+      const actionSummary = document.getElementById("action-summary");
+      const priorityList = document.getElementById("priority-list");
+      
+      // Clear all priority classes first
+      fallEl.className = "status-box waiting";
+      heartEl.className = "status-box waiting";
+      statusEl.className = "status-box waiting";
+      medEl.className = "status-box waiting";
+      
+      let priorityActions = [];
+      let hasActiveAlerts = false;
+
+      // Check Priority 1: Fall
+      if (activeAlerts.fall) {
+        fallEl.className = "status-box fall-alert priority-1";
+        fallEl.innerHTML = '<span class="priority-label">PRIORITY 1</span>🚨 FALL DETECTED! Immediate assistance required!';
+        priorityActions.push("1️⃣ CRITICAL: Respond to fall immediately");
+        hasActiveAlerts = true;
+      } else {
+        fallEl.innerHTML = '<span class="priority-label">PRIORITY 1</span>🧍‍♂️ No fall detected';
+      }
+
+      // Check Priority 2: Heart Rate
+      if (activeAlerts.heartRate) {
+        heartEl.className = "status-box heart-alert priority-2";
+        if (activeAlerts.heartRateType === 'low') {
+          heartEl.innerHTML = `<span class="priority-label">PRIORITY 2</span>⚠️ LOW Heart Rate: ${currentHeartRate} BPM (Below ${hrThresholds.low})`;
+          priorityActions.push(`2️⃣ CRITICAL: Check patient - Low heart rate (${currentHeartRate} BPM)`);
+        } else {
+          heartEl.innerHTML = `<span class="priority-label">PRIORITY 2</span>⚠️ HIGH Heart Rate: ${currentHeartRate} BPM (Above ${hrThresholds.high})`;
+          priorityActions.push(`2️⃣ CRITICAL: Check patient - High heart rate (${currentHeartRate} BPM)`);
+        }
+        hasActiveAlerts = true;
+      } else {
+        if (currentHeartRate !== null) {
+          heartEl.innerHTML = `<span class="priority-label">PRIORITY 2</span>❤️ Heart rate normal: ${currentHeartRate} BPM`;
+        } else {
+          heartEl.innerHTML = '<span class="priority-label">PRIORITY 2</span>❤️ Heart rate: Waiting for data...';
+        }
+      }
+
+      // Check Priority 3: Patient Call
+      if (activeAlerts.call) {
+        statusEl.className = "status-box alert priority-3";
+        statusEl.innerHTML = '<span class="priority-label">PRIORITY 3</span>🚨 Patient Calling! Needs attention';
+        priorityActions.push("3️⃣ HIGH: Respond to patient call");
+        hasActiveAlerts = true;
+      } else {
+        statusEl.innerHTML = '<span class="priority-label">PRIORITY 3</span>🕓 Waiting for patient call...';
+      }
+
+      // Check Priority 4: Medicine
+      if (activeAlerts.medicine) {
+        medEl.className = "status-box med-alert-active priority-4";
+        medEl.innerHTML = `<span class="priority-label">PRIORITY 4</span>💊 Time for: ${activeAlerts.medicineName}`;
+        priorityActions.push(`4️⃣ MEDIUM: Administer ${activeAlerts.medicineName}`);
+        hasActiveAlerts = true;
+      } else {
+        medEl.innerHTML = '<span class="priority-label">PRIORITY 4</span>💊 No medicine reminders';
+      }
+
+      // Update action summary
+      if (hasActiveAlerts) {
+        actionSummary.className = "active";
+        priorityList.innerHTML = priorityActions.map(action => `<li>${action}</li>`).join('');
+        document.getElementById("serviceBtn").disabled = false;
+      } else {
+        actionSummary.className = "";
+        document.getElementById("serviceBtn").disabled = true;
+      }
+
+      // Reorder elements based on priority
+      const container = document.getElementById("priority-container");
+      container.style.display = 'flex';
+      container.style.flexDirection = 'column';
+    }
+
     // --- BLE Functions ---
     async function connectBLE() {
       try {
         const statusEl = document.getElementById("status");
-        statusEl.className = "status-box waiting";
-        statusEl.innerText = "🔍 Scanning for ESP32...";
+        statusEl.innerHTML = '<span class="priority-label">PRIORITY 3</span>🔍 Scanning for ESP32...';
 
         const device = await navigator.bluetooth.requestDevice({
           filters: [{ namePrefix: "ESP32" }],
           optionalServices: [SERVICE_UUID],
         });
 
-        statusEl.innerText = "🔗 Connecting...";
+        statusEl.innerHTML = '<span class="priority-label">PRIORITY 3</span>🔗 Connecting...';
         const server = await device.gatt.connect();
         const service = await server.getPrimaryService(SERVICE_UUID);
         bleCharacteristic = await service.getCharacteristic(CHARACTERISTIC_UUID);
@@ -240,7 +658,7 @@
         await bleCharacteristic.startNotifications();
         bleCharacteristic.addEventListener("characteristicvaluechanged", handleNotification);
 
-        statusEl.innerText = "✅ Connected! Waiting for patient call...";
+        statusEl.innerHTML = '<span class="priority-label">PRIORITY 3</span>✅ Connected! Waiting for patient call...';
         document.getElementById("connectBtn").disabled = true;
 
         // Start the medicine checker
@@ -248,7 +666,7 @@
 
       } catch (error) {
         console.error(error);
-        document.getElementById("status").innerText = "❌ Connection failed: " + error;
+        document.getElementById("status").innerHTML = '<span class="priority-label">PRIORITY 3</span>❌ Connection failed: ' + error;
       }
     }
 
@@ -256,24 +674,29 @@
       const value = new TextDecoder().decode(event.target.value);
       console.log("Received:", value);
 
+      // Parse heart rate data
+      if (value.includes("HR:")) {
+        const hrMatch = value.match(/HR:(\d+)/);
+        if (hrMatch) {
+          const heartRate = parseInt(hrMatch[1]);
+          updateHeartRateDisplay(heartRate);
+        }
+      }
+
       if (value.includes("BUTTON_PRESSED")) {
-        const statusEl = document.getElementById("status");
-        statusEl.className = "status-box alert";
-        statusEl.innerText = "🚨 Patient Calling! Immediate attention required.";
+        activeAlerts.call = true;
+        updatePriorityDisplay();
         playAlertSound();
-        document.getElementById("serviceBtn").disabled = false;
       }
 
       if (value.includes("FALL_DETECTED")) {
-        const fallEl = document.getElementById("fall-alert");
-        fallEl.className = "status-box alert";
-        fallEl.innerText = "🚨 FALL DETECTED! Immediate attention required.";
+        activeAlerts.fall = true;
+        updatePriorityDisplay();
         playAlertSound();
-
-        // Enable serviced button
-        document.getElementById("serviceBtn").disabled = false;
-    }
-
+        // Play multiple alert sounds for fall
+        setTimeout(playAlertSound, 1000);
+        setTimeout(playAlertSound, 2000);
+      }
     }
 
     async function sendBLECommand(command) {
@@ -290,40 +713,66 @@
       }
     }
 
-    // --- Serviced Button ---
+    // --- Serviced Button - Clears in priority order ---
     async function markServiced() {
+      // Clear alerts in priority order as displayed on the website
+      
+      // 1. Clear fall alert first (Priority 1)
+      if (activeAlerts.fall) {
+        activeAlerts.fall = false;
+        await sendBLECommand("FALL_RESET");
+        console.log("Fall alert cleared");
+      }
+
+      // 2. Clear heart rate alert (Priority 2)
+      if (activeAlerts.heartRate) {
+        activeAlerts.heartRate = false;
+        activeAlerts.heartRateType = null;
+        await sendBLECommand("HR_ALERT_OFF");
+        console.log("Heart rate alert cleared");
+      }
+
+      // 3. Clear patient call (Priority 3)
+      if (activeAlerts.call) {
+        activeAlerts.call = false;
+        console.log("Patient call alert cleared");
+      }
+
+      // 4. Clear medicine alert (Priority 4)
+      if (activeAlerts.medicine) {
+        activeAlerts.medicine = false;
+        activeAlerts.medicineName = null;
+        await sendBLECommand("MED_ALARM_OFF");
+        console.log("Medicine alert cleared");
+      }
+
+      // Update display to show all clear
+      updatePriorityDisplay();
+      
+      // Show serviced confirmation temporarily
       const statusEl = document.getElementById("status");
       statusEl.className = "status-box serviced";
-      statusEl.innerText = "✅ Patient Serviced. System ready.";
-      document.getElementById("serviceBtn").disabled = true;
-
-      const medEl = document.getElementById("med-alert");
-      medEl.className = "status-box waiting";
-      medEl.innerText = "💊 No medicine reminders.";
-
-      await sendBLECommand("MED_ALARM_OFF");
-
-      // ---- RESET FALL ALERT ----
-        const fallEl = document.getElementById("fall-alert");
-        fallEl.className = "status-box waiting";
-        fallEl.innerText = "🧍‍♂️ No fall detected.";
-        sendBLECommand("FALL_RESET");
+      statusEl.innerHTML = '<span class="priority-label">PRIORITY 3</span>✅ All alerts serviced. System ready.';
+      
+      // Reset to normal after 3 seconds
+      setTimeout(() => {
+        if (!activeAlerts.call) {
+          statusEl.className = "status-box waiting";
+          statusEl.innerHTML = '<span class="priority-label">PRIORITY 3</span>🕓 Waiting for patient call...';
+        }
+      }, 3000);
     }
 
-    // --- *** MODIFIED / NEW *** Medicine Schedule Logic ---
-
-    // 1. Load schedule from localStorage (if it exists) or from CSV (as fallback)
+    // --- Medicine Schedule Logic ---
     async function startMedicationChecker() {
       const medEl = document.getElementById("med-alert");
       const savedSchedule = localStorage.getItem(SCHEDULE_KEY);
 
       if (savedSchedule) {
-        // Found schedule in localStorage
         medicineSchedule = JSON.parse(savedSchedule);
         console.log("Loaded schedule from localStorage:", medicineSchedule);
-        medEl.innerText = "💊 Schedule loaded. Monitoring...";
+        medEl.innerHTML = '<span class="priority-label">PRIORITY 4</span>💊 Schedule loaded. Monitoring...';
       } else {
-        // Not found, try to fetch the default CSV
         try {
           const response = await fetch('schedule.csv');
           if (!response.ok) throw new Error('schedule.csv not found');
@@ -335,27 +784,25 @@
               const [name, time] = line.split(',');
               return { name: (name || "").trim(), time: (time || "").trim() };
             })
-            .filter(med => med.name && med.time); // Ensure no empty entries
+            .filter(med => med.name && med.time);
 
           console.log("Loaded default schedule from schedule.csv:", medicineSchedule);
-          saveSchedule(); // Save the default schedule to localStorage
-          medEl.innerText = "💊 Default schedule loaded. Monitoring...";
+          saveSchedule();
+          medEl.innerHTML = '<span class="priority-label">PRIORITY 4</span>💊 Default schedule loaded. Monitoring...';
         } catch (err) {
           console.error("Could not load schedule.csv", err);
-          medEl.innerText = "❌ Could not load schedule.csv";
+          medEl.innerHTML = '<span class="priority-label">PRIORITY 4</span>❌ Could not load schedule.csv';
           return;
         }
       }
 
-      // 2. Start checking the time
       if (medCheckInterval) clearInterval(medCheckInterval);
-      medCheckInterval = setInterval(checkSchedule, 10000); // Check every 10 seconds
+      medCheckInterval = setInterval(checkSchedule, 10000);
     }
 
-    // 2. Main time-checking logic (unchanged)
     function checkSchedule() {
       const now = new Date();
-      const currentTime = now.toTimeString().substring(0, 5); // "HH:MM"
+      const currentTime = now.toTimeString().substring(0, 5);
 
       for (const med of medicineSchedule) {
         if (med.time === currentTime) {
@@ -369,26 +816,22 @@
       }
     }
 
-    // 3. Trigger alert (unchanged)
     function triggerMedicationAlert(medName) {
-      const medEl = document.getElementById("med-alert");
-      medEl.className = "status-box med-alert-active";
-      medEl.innerText = `💊 Time for: ${medName}`;
+      activeAlerts.medicine = true;
+      activeAlerts.medicineName = medName;
+      updatePriorityDisplay();
       playAlertSound();
-      document.getElementById("serviceBtn").disabled = false;
       sendBLECommand("MED_ALARM_ON");
     }
 
-    // 4. *** NEW *** Save the current schedule to localStorage
     function saveSchedule() {
       localStorage.setItem(SCHEDULE_KEY, JSON.stringify(medicineSchedule));
       console.log("Schedule saved to localStorage");
     }
 
-    // 5. *** NEW *** Render the schedule list in the modal
     function renderScheduleList() {
       const listEl = document.getElementById("scheduleList");
-      listEl.innerHTML = ""; // Clear the list
+      listEl.innerHTML = "";
 
       if(medicineSchedule.length === 0) {
         listEl.innerHTML = "<li>No medicines in schedule.</li>";
@@ -404,13 +847,11 @@
         listEl.appendChild(li);
       });
 
-      // Add event listeners to the new delete buttons
       listEl.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', deleteMedicine);
       });
     }
 
-    // 6. *** NEW *** Add a new medicine
     function addMedicine() {
       const nameInput = document.getElementById("medNameInput");
       const timeInput = document.getElementById("medTimeInput");
@@ -420,11 +861,10 @@
 
       if (name && time) {
         medicineSchedule.push({ name, time });
-        medicineSchedule.sort((a, b) => a.time.localeCompare(b.time)); // Keep sorted by time
-        saveSchedule(); // Save to localStorage
-        renderScheduleList(); // Redraw the list in the modal
+        medicineSchedule.sort((a, b) => a.time.localeCompare(b.time));
+        saveSchedule();
+        renderScheduleList();
 
-        // Clear inputs
         nameInput.value = "";
         timeInput.value = "";
       } else {
@@ -432,17 +872,15 @@
       }
     }
 
-    // 7. *** NEW *** Delete a medicine
     function deleteMedicine(event) {
       const index = event.target.dataset.index;
       if (confirm(`Are you sure you want to delete ${medicineSchedule[index].name}?`)) {
-        medicineSchedule.splice(index, 1); // Remove from array
-        saveSchedule(); // Save to localStorage
-        renderScheduleList(); // Redraw list
+        medicineSchedule.splice(index, 1);
+        saveSchedule();
+        renderScheduleList();
       }
     }
 
-    // 8. *** NEW *** Download schedule as a new CSV file
     function downloadScheduleCSV() {
       let csvContent = "data:text/csv;charset=utf-8,";
       csvContent += medicineSchedule
@@ -458,7 +896,7 @@
       document.body.removeChild(link);
     }
 
-    // 9. *** NEW *** Show/Hide Modal
+    // --- Modal Functions ---
     const modal = document.getElementById("scheduleModal");
     function openScheduleModal() {
       renderScheduleList();
@@ -471,19 +909,50 @@
     // --- Event Listeners ---
     document.getElementById("connectBtn").addEventListener("click", connectBLE);
     document.getElementById("serviceBtn").addEventListener("click", markServiced);
-
-    // *** NEW *** Modal event listeners
     document.getElementById("editScheduleBtn").addEventListener("click", openScheduleModal);
     document.getElementById("closeModalBtn").addEventListener("click", closeScheduleModal);
     document.getElementById("addMedBtn").addEventListener("click", addMedicine);
     document.getElementById("downloadBtn").addEventListener("click", downloadScheduleCSV);
 
+    // --- Simulate Heart Rate Data (for testing without actual sensor) ---
+    function simulateHeartRate() {
+      // Generate a random heart rate between 50 and 120
+      const baseHR = 75;
+      const variation = Math.sin(Date.now() / 5000) * 20 + Math.random() * 10 - 5;
+      const simulatedHR = Math.round(baseHR + variation);
+      updateHeartRateDisplay(simulatedHR);
+    }
+
+    // Initialize on page load
+    window.addEventListener('load', () => {
+      loadHRSettings();
+      updatePriorityDisplay();
+      
+      // For testing: Start simulating heart rate data
+      // Comment this out when real sensor is connected
+      // setInterval(simulateHeartRate, 2000);
+    });
   </script>
 
+  <div id="scheduleModal">
+    <div class="modal-content">
+      <h2>Edit Medicine Schedule</h2>
 
-<div id="fall-alert" class="status-box waiting">
-  🧍‍♂️ No fall detected.
-</div>
+      <ul id="scheduleList">
+      </ul>
+
+      <div>
+        <input type="text" id="medNameInput" placeholder="Medicine Name">
+        <input type="time" id="medTimeInput">
+        <button id="addMedBtn" class="btn btn-add">Add</button>
+      </div>
+
+      <hr>
+
+      <button id="downloadBtn" class="btn btn-download">💾 Download as CSV</button>
+      <button id="closeModalBtn" class="btn btn-close">Close</button>
+    </div>
+  </div>
 
 </body>
 </html>
